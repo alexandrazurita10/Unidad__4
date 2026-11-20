@@ -5,684 +5,600 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cuestionario Unidad 4: Medios de Transmisión</title>
 <style>
-  :root {
-    --azul: #1e3a8a;
-    --azul-claro: #3b82f6;
-    --verde: #16a34a;
-    --rojo: #dc2626;
-    --fondo: #0f172a;
-    --tarjeta: #ffffff;
-    --texto: #1e293b;
-    --gris: #64748b;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --card:#ffffff; --txt:#1e293b; --sub:#64748b; --opt:#f1f5f9; --opth:#dbeafe; --acento:#3b82f6; }
+  body.oscuro { --card:#1e293b; --txt:#e2e8f0; --sub:#94a3b8; --opt:#334155; --opth:#475569; --acento:#38bdf8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
   body {
-    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0e7490 100%);
-    background-size: 300% 300%;
-    animation: fondo 18s ease infinite;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 24px 16px;
-    color: var(--texto);
+    font-family:"Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    min-height:100vh; padding:24px 16px; color:#fff;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#0e7490);
+    background-size:300% 300%; animation:fondo 18s ease infinite;
+    display:flex; justify-content:center; align-items:center; overflow-x:hidden;
   }
-  @keyframes fondo {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .contenedor { width: 100%; max-width: 720px; }
+  body.oscuro { background:linear-gradient(135deg,#020617,#172554,#164e63); background-size:300% 300%; }
+  @keyframes fondo { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-  header {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-    animation: caerArriba 0.8s ease both;
-  }
-  header h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: 0.3px; }
-  header p { opacity: 0.85; font-size: 0.95rem; margin-top: 6px; }
+  .blob { position:fixed; border-radius:50%; filter:blur(70px); opacity:.35; z-index:-1; animation:flota 14s ease-in-out infinite; }
+  .b1 { width:320px; height:320px; background:#38bdf8; top:-80px; left:-80px; }
+  .b2 { width:280px; height:280px; background:#22c55e; bottom:-60px; right:-60px; animation-delay:-5s; }
+  .b3 { width:200px; height:200px; background:#a855f7; top:40%; left:60%; animation-delay:-9s; }
+  @keyframes flota { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-30px) scale(1.1)} 66%{transform:translate(-30px,40px) scale(.95)} }
 
-  .barra-externa {
-    background: rgba(255,255,255,0.2);
-    border-radius: 999px;
-    height: 12px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-  .barra-interna {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #38bdf8, #22c55e);
-    border-radius: 999px;
-    transition: width 0.6s ease;
-  }
-  .info-progreso {
-    display: flex;
-    justify-content: space-between;
-    color: #e0f2fe;
-    font-size: 0.85rem;
-    margin-bottom: 18px;
-    font-weight: 600;
-  }
+  .contenedor { width:100%; max-width:740px; }
+  header { display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:18px; animation:caerArriba .8s ease both; }
+  header h1 { font-size:1.5rem; font-weight:800; }
+  header p { opacity:.85; font-size:.92rem; margin-top:6px; }
+  .tools { display:flex; gap:10px; margin-top:12px; }
+  .tool { background:rgba(255,255,255,.2); border:none; border-radius:10px; padding:8px 14px; color:#fff; cursor:pointer; font-size:1rem; transition:transform .2s, background .2s; }
+  .tool:hover { transform:scale(1.08); background:rgba(255,255,255,.35); }
+  .tool:active { transform:scale(.92); }
 
-  .tarjeta {
-    background: var(--tarjeta);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-    animation: entrar 0.5s ease both;
+  .card {
+    background:var(--card); color:var(--txt); border-radius:22px; padding:28px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35); position:relative; overflow:hidden;
+    transition:background .4s, color .4s;
   }
-  @keyframes entrar {
-    from { opacity: 0; transform: translateY(24px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes caerArriba {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .girar { animation:girar .55s cubic-bezier(.2,.8,.2,1) both; transform-origin:center; }
+  @keyframes girar { from{transform:perspective(900px) rotateY(90deg); opacity:0} to{transform:perspective(900px) rotateY(0); opacity:1} }
+  @keyframes caerArriba { from{opacity:0; transform:translateY(-20px)} to{opacity:1; transform:translateY(0)} }
+  @keyframes aparecer { from{opacity:0; transform:translateX(-14px)} to{opacity:1; transform:translateX(0)} }
+  @keyframes deslizar { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
 
-  .etiqueta {
-    display: inline-block;
-    background: linear-gradient(90deg, var(--azul), var(--azul-claro));
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 5px 12px;
-    border-radius: 999px;
-    margin-bottom: 14px;
-    letter-spacing: 0.5px;
-  }
-  .pregunta {
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.5;
-    color: var(--azul);
-    margin-bottom: 20px;
-  }
+  /* Configuración */
+  .titulo-setup { font-size:1.4rem; color:var(--acento); margin-bottom:14px; }
+  .label { font-weight:700; font-size:.9rem; color:var(--sub); margin:18px 0 8px; text-transform:uppercase; letter-spacing:.5px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; }
+  .chip { background:var(--opt); color:var(--txt); border:2px solid transparent; border-radius:999px; padding:8px 14px; cursor:pointer; font-size:.88rem; transition:transform .2s, background .25s, color .25s; }
+  .chip:hover { transform:translateY(-2px); }
+  .chip:active { transform:scale(.9); }
+  .chip.on { background:linear-gradient(90deg,#1e3a8a,#3b82f6); color:#fff; box-shadow:0 6px 14px rgba(59,130,246,.35); }
+  .switch { display:flex; align-items:center; gap:10px; margin-top:18px; cursor:pointer; color:var(--txt); font-weight:600; }
+  .switch input { width:20px; height:20px; accent-color:var(--acento); cursor:pointer; }
+  .hint { margin-top:14px; font-size:.82rem; color:var(--sub); }
 
-  .opciones { display: grid; gap: 12px; }
-  .opcion {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
-    text-align: left;
-    background: #f1f5f9;
-    border: 2px solid transparent;
-    border-radius: 14px;
-    padding: 14px 16px;
-    font-size: 0.98rem;
-    color: var(--texto);
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    animation: aparecer 0.4s ease both;
-  }
-  .opcion:nth-child(1) { animation-delay: 0.05s; }
-  .opcion:nth-child(2) { animation-delay: 0.12s; }
-  .opcion:nth-child(3) { animation-delay: 0.19s; }
-  .opcion:nth-child(4) { animation-delay: 0.26s; }
-  @keyframes aparecer {
-    from { opacity: 0; transform: translateX(-12px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-  .opcion:hover:not(:disabled) {
-    background: #dbeafe;
-    border-color: var(--azul-claro);
-    transform: translateX(4px);
-  }
-  .letra {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #cbd5e1;
-    color: #334155;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.9rem;
-    transition: background 0.3s ease;
-  }
-  .opcion:disabled { cursor: default; }
-  .opcion.correcta {
-    background: #dcfce7;
-    border-color: var(--verde);
-    animation: pulso 0.6s ease;
-  }
-  .opcion.correcta .letra { background: var(--verde); color: #fff; }
-  .opcion.incorrecta {
-    background: #fee2e2;
-    border-color: var(--rojo);
-    animation: sacudir 0.5s ease;
-  }
-  .opcion.incorrecta .letra { background: var(--rojo); color: #fff; }
+  .btn { background:linear-gradient(90deg,#1e3a8a,#3b82f6); color:#fff; border:none; border-radius:12px; padding:12px 24px; font-size:1rem; font-weight:700; cursor:pointer; box-shadow:0 8px 20px rgba(59,130,246,.4); transition:transform .2s, box-shadow .2s, opacity .3s; }
+  .btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 12px 26px rgba(59,130,246,.5); }
+  .btn:active:not(:disabled) { transform:scale(.96); }
+  .btn:disabled { opacity:.4; cursor:not-allowed; }
+  .btn.grande { margin-top:24px; width:100%; font-size:1.1rem; padding:15px; }
+  .btn.sec { background:#64748b; box-shadow:0 8px 20px rgba(100,116,139,.4); }
+  .botones { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:22px; }
 
-  @keyframes pulso {
-    0% { transform: scale(1); }
-    40% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-  }
-  @keyframes sacudir {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-8px); }
-    40% { transform: translateX(8px); }
-    60% { transform: translateX(-6px); }
-    80% { transform: translateX(6px); }
-  }
+  /* Quiz */
+  .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .etiqueta { background:linear-gradient(90deg,#1e3a8a,#3b82f6); color:#fff; font-size:.75rem; font-weight:700; padding:5px 12px; border-radius:999px; letter-spacing:.4px; }
+  .racha { font-weight:800; font-size:1rem; color:var(--sub); transition:color .3s; }
+  .racha.activa { color:#f97316; }
+  .pop { animation:pop .5s ease; }
+  @keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.5)} 100%{transform:scale(1)} }
+  .barra { height:10px; background:rgba(127,127,127,.2); border-radius:99px; overflow:hidden; }
+  #progFill { height:100%; background:linear-gradient(90deg,#38bdf8,#22c55e); border-radius:99px; transition:width .5s ease; }
+  .info { display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--sub); margin:8px 0 14px; }
+  .timer { height:6px; background:rgba(127,127,127,.2); border-radius:99px; overflow:hidden; margin-bottom:16px; }
+  #timerFill { height:100%; width:100%; background:linear-gradient(90deg,#22c55e,#facc15); transition:width .1s linear; }
+  #timerFill.urgente { background:#ef4444; animation:parpadeo .5s infinite alternate; }
+  @keyframes parpadeo { from{opacity:1} to{opacity:.4} }
+  .pregunta { font-size:1.12rem; font-weight:700; line-height:1.5; color:var(--acento); margin-bottom:18px; }
 
-  .explicacion {
-    margin-top: 18px;
-    padding: 14px 16px;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    display: none;
-    animation: entrar 0.4s ease both;
-  }
-  .explicacion.ok { display: block; background: #dcfce7; color: #14532d; border-left: 5px solid var(--verde); }
-  .explicacion.mal { display: block; background: #fee2e2; color: #7f1d1d; border-left: 5px solid var(--rojo); }
+  .opciones { display:grid; gap:10px; }
+  .opcion { display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:var(--opt); color:var(--txt); border:2px solid transparent; border-radius:14px; padding:13px 14px; font-size:.97rem; cursor:pointer; transition:transform .2s, background .2s, border-color .2s, box-shadow .2s; animation:aparecer .4s ease both; }
+  .opcion:hover:not(:disabled) { background:var(--opth); border-color:var(--acento); transform:translateX(5px); box-shadow:0 6px 14px rgba(59,130,246,.2); }
+  .opcion:active:not(:disabled) { transform:scale(.98); }
+  .opcion:disabled { cursor:default; }
+  .letra { flex-shrink:0; width:32px; height:32px; border-radius:50%; background:rgba(127,127,127,.3); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.88rem; transition:background .3s, transform .3s; }
+  .txt { flex:1; }
+  .tecla { font-size:.72rem; opacity:.5; border:1px solid currentColor; border-radius:6px; padding:1px 6px; }
+  .opcion.correcta { background:#dcfce7; color:#14532d; border-color:#16a34a; animation:pulso .6s ease; }
+  .opcion.correcta .letra { background:#16a34a; color:#fff; transform:rotate(360deg); }
+  .opcion.incorrecta { background:#fee2e2; color:#7f1d1d; border-color:#dc2626; animation:sacudir .5s ease; }
+  .opcion.incorrecta .letra { background:#dc2626; color:#fff; }
+  @keyframes pulso { 0%{transform:scale(1)} 40%{transform:scale(1.03)} 100%{transform:scale(1)} }
+  @keyframes sacudir { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-9px)} 40%{transform:translateX(9px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+  .card.sacudir { animation:sacudirCard .45s ease; }
+  @keyframes sacudirCard { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
 
-  .acciones {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 22px;
-  }
-  .btn {
-    background: linear-gradient(90deg, var(--azul), var(--azul-claro));
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 26px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(59,130,246,0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .btn.visible { opacity: 1; pointer-events: auto; }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(59,130,246,0.5); }
+  .explicacion { display:none; margin-top:16px; padding:14px 16px; border-radius:12px; font-size:.94rem; line-height:1.5; }
+  .explicacion.visible { display:block; animation:deslizar .4s ease both; }
+  .explicacion.ok { background:#dcfce7; color:#14532d; border-left:5px solid #16a34a; }
+  .explicacion.mal { background:#fee2e2; color:#7f1d1d; border-left:5px solid #dc2626; }
+  .acciones { display:flex; justify-content:flex-end; margin-top:20px; }
+  #sig { opacity:.4; }
+  #sig.listo { opacity:1; animation:latido 1.2s ease infinite; }
+  @keyframes latido { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
 
-  .resultado { text-align: center; padding: 10px 0; }
-  .emoji { font-size: 4rem; animation: rebotar 1.2s ease infinite; display: inline-block; }
-  @keyframes rebotar {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-14px); }
-  }
-  .puntaje {
-    font-size: 3rem;
-    font-weight: 900;
-    color: var(--azul);
-    margin: 12px 0 4px;
-  }
-  .mensaje { color: var(--gris); font-size: 1.05rem; margin-bottom: 22px; }
-  .detalle-seccion {
-    display: grid;
-    gap: 10px;
-    margin: 18px 0 26px;
-    text-align: left;
-  }
-  .fila-seccion {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 12px 16px;
-    animation: aparecer 0.5s ease both;
-  }
-  .fila-seccion strong { display: block; color: var(--azul); margin-bottom: 6px; font-size: 0.92rem; }
-  .barra-mini {
-    background: #e2e8f0;
-    height: 8px;
-    border-radius: 999px;
-    overflow: hidden;
-  }
-  .barra-mini div {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #38bdf8, #22c55e);
-    border-radius: 999px;
-    transition: width 1s ease;
-  }
+  /* Resultados */
+  .resultado { text-align:center; }
+  .emoji { font-size:4rem; display:inline-block; animation:rebotar 1.2s ease infinite; }
+  @keyframes rebotar { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+  .ring { position:relative; width:160px; height:160px; margin:12px auto 4px; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring circle { fill:none; stroke-width:11; }
+  .ring .fondo { stroke:var(--opt); }
+  .ring .fg { stroke:#22c55e; stroke-linecap:round; transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1); }
+  .ringtxt { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:900; color:var(--txt); }
+  .mensaje { color:var(--sub); font-size:.98rem; margin-top:6px; }
+  .msg { font-weight:700; color:var(--acento); margin-top:6px; }
+  .detalle { display:grid; gap:10px; margin-top:20px; text-align:left; }
+  .fila { background:var(--opt); border-radius:12px; padding:12px 14px; animation:aparecer .5s ease both; }
+  .fila-top { display:flex; justify-content:space-between; font-weight:600; margin-bottom:7px; font-size:.92rem; }
+  .barra-mini { height:8px; background:rgba(127,127,127,.2); border-radius:99px; overflow:hidden; }
+  .barra-mini div { height:100%; width:0; background:linear-gradient(90deg,#38bdf8,#22c55e); border-radius:99px; transition:width 1s ease; }
 
-  .confeti {
-    position: fixed;
-    top: -20px;
-    width: 10px;
-    height: 14px;
-    border-radius: 3px;
-    pointer-events: none;
-    animation: caer linear forwards;
-    z-index: 10;
-  }
-  @keyframes caer {
-    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-  }
+  /* Efectos */
+  .chispa { position:fixed; width:8px; height:8px; border-radius:50%; pointer-events:none; z-index:50; animation:chispa .8s ease-out forwards; }
+  @keyframes chispa { to { transform:translate(var(--dx), var(--dy)) scale(0); opacity:0; } }
+  #confeti { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:40; }
+  .papel { position:fixed; top:-20px; width:9px; height:13px; border-radius:2px; animation:caer linear forwards; }
+  @keyframes caer { to { transform:translateY(110vh) rotate(720deg); opacity:0; } }
 
-  footer {
-    text-align: center;
-    color: #bae6fd;
-    font-size: 0.8rem;
-    margin-top: 18px;
-    opacity: 0.8;
-  }
+  footer { text-align:center; color:#bae6fd; font-size:.8rem; margin-top:18px; opacity:.85; }
+  @media (max-width:520px) { .card { padding:20px; } .pregunta { font-size:1.02rem; } }
 </style>
 </head>
 <body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
 <div class="contenedor">
-  <header>
-    <h1>Unidad 4: Medios de Transmisión y Tecnologías Emergentes</h1>
-    <p>Cuestionario sobre 4.1 Medios Guiados y 4.2 Medios No Guiados y Redes Inalámbricas</p>
-  </header>
-
-  <div class="barra-externa"><div class="barra-interna" id="barra"></div></div>
-  <div class="info-progreso">
-    <span id="contador">Pregunta 1 de 1</span>
-    <span id="aciertos">Aciertos: 0</span>
-  </div>
-
-  <div class="tarjeta" id="tarjeta"></div>
-  <footer>UTLVTE · Tecnologías de la Información · 1S 2026</footer>
+  <div id="app"></div>
 </div>
+<div id="confeti"></div>
 
 <script>
-const preguntas = [
-  // ===== 4.1 MEDIOS GUIADOS: CABLE COAXIAL =====
-  { sec: "Cable coaxial", q: "¿Qué elemento del cable coaxial actúa como blindaje contra interferencias electromagnéticas (EMI)?",
-    ops: ["Conductor central de cobre", "Aislante dieléctrico", "Malla metálica trenzada", "Cubierta exterior de PVC"], r: 2,
-    exp: "La malla metálica trenzada funciona como blindaje contra EMI." },
-  { sec: "Cable coaxial", q: "¿Qué impedancia característica se utiliza en la distribución de televisión por cable (CATV)?",
-    ops: ["50 Ω", "75 Ω", "100 Ω", "600 Ω"], r: 1,
-    exp: "El coaxial de 75 Ω se usa en CATV, redes HFC (DOCSIS) y video SDI." },
-  { sec: "Cable coaxial", q: "¿Para qué se utiliza el coaxial de 50 Ω?",
-    ops: ["Distribución de televisión por cable", "Ethernet primitivo (10Base2/10Base5) y radiofrecuencia", "Redes HFC DOCSIS", "Video SDI de alta definición"], r: 1,
-    exp: "El de 50 Ω se usa en transmisión digital como Ethernet primitivo y en redes de RF." },
-  { sec: "Cable coaxial", q: "¿En qué dispositivos se utiliza comúnmente el conector F?",
-    ops: ["Módems de cable y receptores satelitales", "Switches Ethernet", "Transceptores SFP", "Cámaras IP"], r: 0,
-    exp: "El conector F es típico de módems de cable y receptores satelitales." },
-  { sec: "Cable coaxial", q: "Verdadero o falso: el conector BNC es de acople rápido, tipo bayoneta.",
-    ops: ["Verdadero", "Falso"], r: 0,
-    exp: "BNC (Bayonet Neill-Concelman) es de acople rápido mediante bayoneta." },
-  { sec: "Cable coaxial", q: "¿Cuál es la cubierta exterior típica del cable coaxial?",
-    ops: ["Nylon", "PVC/LSZH", "Caucho vulcanizado", "Fibra de vidrio"], r: 1,
-    exp: "La cubierta exterior es de PVC o LSZH." },
-  { sec: "Cable coaxial", q: "¿Qué conector se usa en el coaxial y es de tipo rosca de gran tamaño, utilizado en radiofrecuencia?",
-    ops: ["N-type", "LC", "RJ45", "SC"], r: 0,
-    exp: "El conector N-type se usa en radiofrecuencia; LC, SC y RJ45 no son conectores coaxiales." },
+const DATA = [
+// ===== COAXIAL =====
+["Coaxial","¿Qué elemento del coaxial actúa como blindaje contra interferencias electromagnéticas (EMI)?","Malla metálica trenzada",["Conductor central de cobre","Aislante dieléctrico","Cubierta de PVC"],"La malla trenzada bloquea las EMI."],
+["Coaxial","¿Qué impedancia característica se usa en la distribución de TV por cable (CATV)?","75 Ω",["50 Ω","100 Ω","600 Ω"],"El coaxial de 75 Ω se usa en CATV, HFC (DOCSIS) y video SDI."],
+["Coaxial","¿Para qué se usa el coaxial de 50 Ω?","Ethernet primitivo (10Base2/10Base5) y RF",["Distribución de TV por cable","Redes HFC DOCSIS","Video SDI de alta definición"],"El de 50 Ω se usa en datos digitales y radiofrecuencia."],
+["Coaxial","¿En qué equipos se usa comúnmente el conector F?","Módems de cable y receptores satelitales",["Switches Ethernet","Transceptores SFP","Cámaras IP"],"El conector F es típico de módems de cable y satélite."],
+["Coaxial","¿Cómo es el acople del conector BNC?","Rápido, tipo bayoneta",["Roscado fijo con tuerca hexagonal","Presión con grapas","Tipo push-pull"],"BNC (Bayonet Neill-Concelman) es de acople rápido por bayoneta."],
+["Coaxial","¿Cuál es la cubierta exterior típica del cable coaxial?","PVC o LSZH",["Nylon reforzado","Caucho vulcanizado","Fibra de vidrio"],"La cubierta exterior es de PVC/LSZH."],
+["Coaxial","¿Qué conector roscado de gran tamaño se usa en radiofrecuencia?","N-type",["RJ45","LC","SC"],"N-type es un conector coaxial roscado para RF."],
+["Coaxial","Verdadero o falso: el coaxial de 75 Ω es el usado para video SDI.","Verdadero",["Falso"],"SDI se transmite sobre coaxial de 75 Ω."],
+["Coaxial","¿De qué material es el conductor central del coaxial?","Cobre",["Aluminio puro","Sílice","Caucho conductivo"],"El conductor central es de cobre."],
 
-  // ===== PAR TRENZADO =====
-  { sec: "Par trenzado", q: "¿Para qué se entrelazan helicoidalmente los hilos del cable de par trenzado?",
-    ops: ["Para aumentar la velocidad de transmisión", "Para cancelar la diafonía (crosstalk) y la interferencia externa", "Para reducir el peso del cable", "Para permitir la conexión de fibra óptica"], r: 1,
-    exp: "El entrelazado cancela la diafonía y la interferencia externa." },
-  { sec: "Par trenzado", q: "¿Qué describe mejor al cable UTP?",
-    ops: ["Par trenzado con pantalla de aluminio por par", "Par trenzado no blindado, económico y flexible", "Cable exclusivo para exteriores con alta EMI", "Cable de cobre para microondas"], r: 1,
-    exp: "UTP es no blindado, económico, flexible y el más común en LAN de interior." },
-  { sec: "Par trenzado", q: "¿En qué tipo de entorno se recomienda el cable STP/FTP?",
-    ops: ["Entornos industriales con elevada EMI", "Hogares con pocas conexiones", "Redes inalámbricas", "Enlaces de fibra de larga distancia"], r: 0,
-    exp: "STP/FTP incorpora protección adicional y se recomienda en entornos industriales con alta EMI." },
-  { sec: "Par trenzado", q: "¿Cuál es el ancho de banda máximo de la categoría Cat 5e?",
-    ops: ["100 MHz", "250 MHz", "500 MHz", "2000 MHz"], r: 0,
-    exp: "Cat 5e alcanza 100 MHz." },
-  { sec: "Par trenzado", q: "¿Cuál es el ancho de banda máximo de la categoría Cat 6A?",
-    ops: ["250 MHz", "500 MHz", "2000 MHz", "100 MHz"], r: 1,
-    exp: "Cat 6A alcanza 500 MHz." },
-  { sec: "Par trenzado", q: "¿Hasta qué distancia alcanza Cat 6 los 10 Gbps?",
-    ops: ["100 metros", "37 a 55 metros", "30 metros", "300 metros"], r: 1,
-    exp: "Cat 6 alcanza 1 Gbps en 100 m, y 10 Gbps hasta 37–55 m." },
-  { sec: "Par trenzado", q: "¿Para qué aplicación se recomienda la categoría Cat 8?",
-    ops: ["Redes LAN residenciales", "Conexiones ToR (Top of Rack) en Data Centers", "Distribución de TV por cable", "Telefonía fija"], r: 1,
-    exp: "Cat 8 se usa en conexiones Top of Rack dentro de Data Centers." },
-  { sec: "Par trenzado", q: "¿Cuál es la distancia máxima por canal de la categoría Cat 8?",
-    ops: ["100 metros", "55 metros", "30 metros", "10 metros"], r: 2,
-    exp: "Cat 8 tiene una distancia máxima de 30 metros por canal." },
-  { sec: "Par trenzado", q: "¿Qué velocidad máxima ofrece la categoría Cat 8 según la tabla?",
-    ops: ["1 Gbps", "10 Gbps", "25 Gbps / 40 Gbps", "100 Gbps"], r: 2,
-    exp: "Cat 8 llega a 25 Gbps / 40 Gbps." },
-  { sec: "Ponchado", q: "Según ANSI/TIA-568, ¿qué pines transmiten (TX+ y TX-) en Ethernet 10/100Base-T?",
-    ops: ["Pines 1 y 2", "Pines 3 y 6", "Pines 4 y 5", "Pines 7 y 8"], r: 0,
-    exp: "TX+ es el pin 1 y TX- es el pin 2." },
-  { sec: "Ponchado", q: "Según ANSI/TIA-568, ¿qué pines reciben (RX+ y RX-) en Ethernet 10/100Base-T?",
-    ops: ["Pines 1 y 2", "Pines 3 y 6", "Pines 4 y 5", "Pines 7 y 8"], r: 1,
-    exp: "RX+ es el pin 3 y RX- es el pin 6." },
-  { sec: "Ponchado", q: "En el estándar T568B, ¿qué color corresponde al pin 2?",
-    ops: ["Blanco/Naranja", "Naranja", "Verde", "Azul"], r: 1,
-    exp: "En T568B el pin 2 es naranja (y el pin 1 es blanco/naranja)." },
-  { sec: "Ponchado", q: "En el estándar T568A, ¿qué color corresponde al pin 3?",
-    ops: ["Blanco/Naranja", "Blanco/Verde", "Verde", "Naranja"], r: 0,
-    exp: "En T568A el pin 3 es blanco/naranja." },
-  { sec: "Ponchado", q: "¿Qué pines se usan en Gigabit además de los de 10/100Base-T (en la tabla)?",
-    ops: ["Pines 4, 5, 7 y 8", "Pines 1 y 2", "Pines 3 y 6", "Solo el pin 8"], r: 0,
-    exp: "Los pines 4, 5, 7 y 8 se usan en Gigabit." },
-  { sec: "Ponchado", q: "¿Qué patrón de cable directo (straight-through) se utiliza?",
-    ops: ["T568A en ambos extremos", "T568B en ambos extremos", "T568A en un extremo y T568B en el otro", "T568C en ambos extremos"], r: 1,
-    exp: "El cable directo usa T568B en ambos extremos." },
-  { sec: "Ponchado", q: "¿Qué tipo de cable directo se usa para conectar una PC a un switch?",
-    ops: ["Cable cruzado", "Cable directo", "Cable de fibra", "Cable coaxial"], r: 1,
-    exp: "Como PC y switch son dispositivos de distinta capa, se usa cable directo." },
-  { sec: "Ponchado", q: "¿Qué patrón de cable se utiliza para conectar dos switches entre sí?",
-    ops: ["Directo", "Cruzado", "Coaxial", "Monomodo"], r: 1,
-    exp: "Switch a switch son dispositivos de igual capa, así que se usa cable cruzado." },
-  { sec: "Ponchado", q: "¿Qué combinación de patrones corresponde a un cable cruzado (crossover)?",
-    ops: ["T568B en ambos extremos", "T568A en ambos extremos", "T568A en un extremo y T568B en el otro", "Blanco/Azul en todos los pines"], r: 2,
-    exp: "El cable cruzado usa T568A en un extremo y T568B en el otro." },
-  { sec: "Ponchado", q: "Un técnico conecta una PC a un switch con cable cruzado. ¿Es correcto?",
-    ops: ["Sí, siempre es correcto", "No, debería usar cable directo (T568B en ambos extremos)", "Depende del fabricante", "Solo es correcto con fibra óptica"], r: 1,
-    exp: "PC a switch requiere cable directo; el cruzado se usa entre dispositivos de igual capa." },
+// ===== PAR TRENZADO =====
+["Par trenzado","¿Para qué se entrelazan los hilos del par trenzado?","Cancelar la diafonía y la interferencia externa",["Aumentar la velocidad","Reducir el peso del cable","Permitir conexión de fibra"],"El trenzado cancela la diafonía (crosstalk)."],
+["Par trenzado","¿Qué describe mejor al cable UTP?","No blindado, económico y el más común en LAN de interior",["Con pantalla de aluminio por par","Solo para exteriores con alta EMI","Para enlaces de microondas"],"UTP es flexible, económico y común en LAN interiores."],
+["Par trenzado","¿En qué entorno se recomienda el cable STP/FTP?","Industrial con elevada EMI",["Hogares con pocas conexiones","Redes inalámbricas","Enlaces de fibra de larga distancia"],"Incorpora pantallas y se recomienda con alta EMI."],
+["Par trenzado","¿Cuál es el ancho de banda máximo de Cat 5e?","100 MHz",["250 MHz","500 MHz","2000 MHz"],"Cat 5e llega a 100 MHz."],
+["Par trenzado","¿Cuál es el ancho de banda máximo de Cat 6?","250 MHz",["100 MHz","500 MHz","2 GHz"],"Cat 6 llega a 250 MHz."],
+["Par trenzado","¿Cuál es el ancho de banda máximo de Cat 6A?","500 MHz",["100 MHz","250 MHz","2000 MHz"],"Cat 6A llega a 500 MHz."],
+["Par trenzado","¿Cuál es el ancho de banda máximo de Cat 8?","2000 MHz (2 GHz)",["500 MHz","250 MHz","100 MHz"],"Cat 8 llega a 2 GHz."],
+["Par trenzado","¿Hasta qué distancia alcanza Cat 6 los 10 Gbps?","37 a 55 metros",["100 metros","30 metros","300 metros"],"Cat 6 alcanza 10 Gbps solo hasta 37–55 m."],
+["Par trenzado","¿Cuál es la velocidad de Cat 5e según la tabla?","1 Gbps (1000Base-T)",["10 Gbps","100 Mbps","25 Gbps"],"Cat 5e soporta 1 Gbps."],
+["Par trenzado","¿Cuál es la velocidad máxima de Cat 8?","25 Gbps / 40 Gbps",["1 Gbps","10 Gbps","100 Gbps"],"Cat 8 llega a 25/40 Gbps."],
+["Par trenzado","¿Para qué aplicación se usa Cat 8?","Conexiones ToR (Top of Rack) en Data Centers",["Redes LAN residenciales","Distribución de TV por cable","Enlaces de fibra de larga distancia"],"Cat 8 es para ToR en centros de datos."],
+["Par trenzado","¿Para qué aplicación se usa Cat 6A?","Centros de datos y backbone corporativo",["Redes LAN residenciales","Telefonía fija","Distribución de TV por cable"],"Cat 6A es para centros de datos y backbone."],
+["Par trenzado","¿Cuál es la distancia máxima por canal en Cat 8?","30 metros",["100 metros","55 metros","10 metros"],"Cat 8 tiene 30 m por canal."],
+["Par trenzado","¿Cuál es la distancia máxima de Cat 5e?","100 metros",["30 metros","55 metros","300 metros"],"Cat 5e, como Cat 6 y 6A, llega a 100 m."],
 
-  // ===== FIBRA ÓPTICA =====
-  { sec: "Fibra óptica", q: "¿En qué principio físico se basa la transmisión de luz en la fibra óptica?",
-    ops: ["Refracción simple", "Reflexión Total Interna", "Difracción", "Efecto Doppler"], r: 1,
-    exp: "La fibra transmite luz gracias a la Reflexión Total Interna." },
-  { sec: "Fibra óptica", q: "¿De qué material está hecho el núcleo de la fibra óptica?",
-    ops: ["Cobre", "Aluminio", "Vidrio o sílice", "Caucho"], r: 2,
-    exp: "El núcleo es de vidrio o sílice." },
-  { sec: "Fibra óptica", q: "¿Cuál es el diámetro típico del núcleo de la fibra monomodo (SMF)?",
-    ops: ["50 µm", "62.5 µm", "8 a 10 µm", "100 µm"], r: 2,
-    exp: "La monomodo tiene un núcleo de 8 a 10 µm." },
-  { sec: "Fibra óptica", q: "¿Qué tipo de emisor utiliza la fibra monomodo?",
-    ops: ["LED", "Láser", "VCSEL", "Antena dipolo"], r: 1,
-    exp: "La monomodo usa un rayo láser que viaja en un solo modo." },
-  { sec: "Fibra óptica", q: "¿Qué tipo de emisor utiliza la fibra multimodo?",
-    ops: ["Láser de alta potencia", "LED o VCSEL", "Láser de estado sólido", "Antena parabólica"], r: 1,
-    exp: "La multimodo emplea LED o VCSEL." },
-  { sec: "Fibra óptica", q: "¿Cuál es el alcance típico de la fibra monomodo?",
-    ops: ["Hasta 300 metros", "Hasta 550 metros", "Decenas a cientos de kilómetros", "Solo dentro de un edificio"], r: 2,
-    exp: "La monomodo se diseña para enlaces de larga distancia, de decenas a cientos de km." },
-  { sec: "Fibra óptica", q: "¿Hasta qué distancia alcanza la fibra multimodo a 10 Gbps?",
-    ops: ["300 a 550 metros", "10 kilómetros", "100 kilómetros", "5 metros"], r: 0,
-    exp: "La multimodo llega a 300–550 m a 10 Gbps." },
-  { sec: "Fibra óptica", q: "¿Cuáles son las longitudes de onda típicas de la fibra monomodo?",
-    ops: ["850 nm y 1300 nm", "1310 nm y 1550 nm", "1550 nm y 2000 nm", "650 nm y 780 nm"], r: 1,
-    exp: "La monomodo trabaja típicamente en 1310 nm y 1550 nm." },
-  { sec: "Fibra óptica", q: "¿Cuáles son las longitudes de onda típicas de la fibra multimodo?",
-    ops: ["850 nm y 1300 nm", "1310 nm y 1550 nm", "1550 nm y 2000 nm", "650 nm y 780 nm"], r: 0,
-    exp: "La multimodo trabaja típicamente en 850 nm y 1300 nm." },
-  { sec: "Fibra óptica", q: "¿Cuál es la causa principal de la limitación de alcance en la fibra multimodo?",
-    ops: ["Atenuación del vidrio", "Dispersión modal", "Interferencia electromagnética", "Uso de láser de alta potencia"], r: 1,
-    exp: "La dispersión modal limita el alcance de la multimodo." },
-  { sec: "Fibra óptica", q: "¿Qué característica presenta la fibra monomodo?",
-    ops: ["Dispersión modal alta", "Atenuación mínima y nula dispersión modal", "Núcleo de 62.5 µm", "Emisor LED"], r: 1,
-    exp: "La monomodo tiene atenuación mínima y nula dispersión modal." },
-  { sec: "Fibra óptica", q: "¿Qué tipo de conector es el LC (Lucent Connector)?",
-    ops: ["Cilíndrico de bayoneta", "De factor de forma pequeño con mecanismo Push-Pull", "Cuadrado de inserción directa para PON", "Conector de radiofrecuencia"], r: 1,
-    exp: "LC es de factor de forma pequeño con Push-Pull, estándar en switches y SFP/SFP+." },
-  { sec: "Fibra óptica", q: "¿Qué tipo de conector es el SC (Subscriber Connector)?",
-    ops: ["Cilíndrico de bayoneta", "De factor de forma pequeño con Push-Pull", "Cuadrado de inserción directa, muy usado en PON/FTTH", "Conector F"], r: 2,
-    exp: "SC es cuadrado de inserción directa y muy usado en redes PON/FTTH." },
-  { sec: "Fibra óptica", q: "¿Qué tipo de conector es el ST (Straight Tip)?",
-    ops: ["Cilíndrico de bayoneta (giro y traba)", "De factor de forma pequeño con Push-Pull", "Cuadrado de inserción directa", "Conector BNC de radiofrecuencia"], r: 0,
-    exp: "ST es cilíndrico y de bayoneta, con giro y traba." },
-  { sec: "Fibra óptica", q: "¿Cuál es la pérdida de inserción aproximada del empalme por fusión?",
-    ops: ["Menor a 0.02 dB", "Entre 0.2 y 0.5 dB", "Alrededor de 2 dB", "Alrededor de 10 dB"], r: 0,
-    exp: "El empalme por fusión aporta menos de 0.02 dB de pérdida." },
-  { sec: "Fibra óptica", q: "¿Para qué se utiliza normalmente el empalme mecánico?",
-    ops: ["Como método definitivo en backbones", "Como solución temporal o en emergencias", "Para enlaces de microondas", "Para conectar cables UTP"], r: 1,
-    exp: "El empalme mecánico es temporal o de emergencia y tiene mayor pérdida." },
-  { sec: "Fibra óptica", q: "¿Cómo funciona el empalme por fusión?",
-    ops: ["Con gel de adaptación de índice de refracción", "Con un arco eléctrico de alta precisión", "Con pegamento epóxico", "Con grapas metálicas"], r: 1,
-    exp: "La fusión usa un arco eléctrico de alta precisión para unir los núcleos." },
-  { sec: "Fibra óptica", q: "¿Por qué el empalme por fusión se considera el método definitivo?",
-    ops: ["Es el más barato del mercado", "Tiene la menor pérdida y alta resistencia mecánica", "No requiere herramientas", "Permite desconectarse fácilmente"], r: 1,
-    exp: "Combina la menor pérdida de inserción con alta resistencia mecánica." },
+// ===== PONCHADO =====
+["Ponchado","Según ANSI/TIA-568, ¿qué pines transmiten (TX+ y TX-) en Ethernet 10/100Base-T?","Pines 1 y 2",["Pines 3 y 6","Pines 4 y 5","Pines 7 y 8"],"TX+ es el pin 1 y TX- el pin 2."],
+["Ponchado","Según ANSI/TIA-568, ¿qué pines reciben (RX+ y RX-) en Ethernet 10/100Base-T?","Pines 3 y 6",["Pines 1 y 2","Pines 4 y 5","Pines 7 y 8"],"RX+ es el pin 3 y RX- el pin 6."],
+["Ponchado","En T568B, ¿qué color corresponde al pin 2?","Naranja",["Verde","Blanco/Naranja","Azul"],"En T568B el pin 2 es naranja."],
+["Ponchado","En T568A, ¿qué color corresponde al pin 3?","Blanco/Naranja",["Blanco/Verde","Verde","Naranja"],"En T568A el pin 3 es blanco/naranja."],
+["Ponchado","¿Qué pines se usan en Gigabit según la tabla?","4, 5, 7 y 8",["1 y 2","3 y 6","Solo el 8"],"Los pines 4, 5, 7 y 8 se usan en Gigabit."],
+["Ponchado","¿Qué combinación define el cable directo (straight-through)?","T568B en ambos extremos",["T568A en ambos extremos","T568A en un extremo y T568B en el otro","T568C en ambos extremos"],"El directo usa T568B en ambos lados."],
+["Ponchado","¿Qué cable se usa para conectar una PC a un switch?","Directo",["Cruzado","Coaxial de 50 Ω","Monomodo"],"PC y switch son de capas distintas: cable directo."],
+["Ponchado","¿Qué cable se usa para conectar dos switches entre sí?","Cruzado",["Directo","Fibra monomodo","Coaxial de 75 Ω"],"Switch a switch son dispositivos de igual capa: cruzado."],
+["Ponchado","¿Qué combinación define el cable cruzado (crossover)?","T568A en un extremo y T568B en el otro",["T568B en ambos extremos","T568A en ambos extremos","Blanco/Azul en todos los pines"],"El cruzado usa T568A en un lado y T568B en el otro."],
+["Ponchado","Un técnico conecta una PC a un switch con cable cruzado. ¿Es correcto?","No, debe usar cable directo",["Sí, siempre es correcto","Depende del fabricante","Solo con fibra óptica"],"PC a switch requiere cable directo."],
+["Ponchado","¿Qué cable se usa para conectar un router con otro router?","Cruzado",["Directo","Coaxial de 50 Ω","Multimodo"],"Router a router es igual capa: cruzado."],
 
-  // ===== MICROONDAS TERRESTRES =====
-  { sec: "Microondas terrestres", q: "¿En qué rango de frecuencias operan los enlaces de microondas terrestres (SHF)?",
-    ops: ["300 MHz a 3 GHz", "3 GHz a 30 GHz", "30 GHz a 300 GHz", "1 MHz a 2 MHz"], r: 1,
-    exp: "SHF abarca de 3 GHz a 30 GHz." },
-  { sec: "Microondas terrestres", q: "¿Qué requisito de propagación deben cumplir los enlaces microondas?",
-    ops: ["Línea de Vista Directa (LoS)", "Enterrarse bajo tierra", "Estar conectados por fibra", "Usar cable coaxial de 75 Ω"], r: 0,
-    exp: "Requieren línea de vista directa sin obstrucciones." },
-  { sec: "Microondas terrestres", q: "¿Qué zona debe permanecer libre de obstrucciones en un enlace microondas?",
-    ops: ["Primera Zona de Fresnel", "Zona de Ozono", "Zona de carga eléctrica", "Zona de sombra"], r: 0,
-    exp: "La primera Zona de Fresnel debe estar libre para evitar desvanecimiento." },
-  { sec: "Microondas terrestres", q: "¿Qué problema se produce si hay obstrucción en la zona de Fresnel?",
-    ops: ["Aumento de la velocidad", "Desvanecimiento y pérdida de señal", "Mayor alcance", "Reducción del ruido térmico"], r: 1,
-    exp: "La obstrucción causa desvanecimiento y pérdida de señal." },
+// ===== FIBRA ÓPTICA =====
+["Fibra óptica","¿En qué principio físico se basa la fibra óptica?","Reflexión Total Interna",["Refracción simple","Difracción","Efecto Doppler"],"La luz se mantiene dentro del núcleo por reflexión total interna."],
+["Fibra óptica","¿De qué material es el núcleo de la fibra?","Vidrio o sílice",["Cobre","Aluminio","Caucho"],"El núcleo es de vidrio o sílice."],
+["Fibra óptica","¿Cuál es el diámetro típico del núcleo monomodo (SMF)?","8 a 10 µm",["50 µm","62.5 µm","100 µm"],"La monomodo tiene núcleo muy delgado."],
+["Fibra óptica","¿Qué emisor usa la fibra monomodo?","Láser",["LED","VCSEL","Antena dipolo"],"La monomodo usa un rayo láser."],
+["Fibra óptica","¿Qué emisor usa la fibra multimodo?","LED o VCSEL",["Láser de alta potencia","Láser de estado sólido","Antena parabólica"],"La multimodo usa LED o VCSEL."],
+["Fibra óptica","¿Cuál es el alcance típico de la fibra monomodo?","Decenas a cientos de kilómetros",["Hasta 300 metros","Hasta 550 metros","Solo dentro de un edificio"],"La monomodo es para larga distancia."],
+["Fibra óptica","¿Hasta qué distancia llega la multimodo a 10 Gbps?","300 a 550 metros",["10 kilómetros","100 kilómetros","5 metros"],"La multimodo llega a 300–550 m a 10 Gbps."],
+["Fibra óptica","¿Qué longitudes de onda son típicas en monomodo?","1310 nm y 1550 nm",["850 nm y 1300 nm","1550 nm y 2000 nm","650 nm y 780 nm"],"Monomodo: 1310 y 1550 nm."],
+["Fibra óptica","¿Qué longitudes de onda son típicas en multimodo?","850 nm y 1300 nm",["1310 nm y 1550 nm","1550 nm y 2000 nm","650 nm y 780 nm"],"Multimodo: 850 y 1300 nm."],
+["Fibra óptica","¿Cuál es la causa de la limitación de alcance en multimodo?","Dispersión modal",["Atenuación del vidrio","Interferencia electromagnética","Láser de alta potencia"],"La dispersión modal reduce el alcance efectivo."],
+["Fibra óptica","¿Qué característica tiene la fibra monomodo?","Atenuación mínima y nula dispersión modal",["Dispersión modal alta","Núcleo de 62.5 µm","Emisor LED"],"Monomodo: atenuación mínima y sin dispersión modal."],
+["Fibra óptica","¿Qué es el conector LC?","Factor de forma pequeño con mecanismo Push-Pull",["Cilíndrico de bayoneta","Cuadrado para PON/FTTH","Conector de radiofrecuencia"],"LC es estándar en switches y SFP."],
+["Fibra óptica","¿Qué es el conector SC?","Cuadrado de inserción directa, muy usado en PON/FTTH",["Cilíndrico de bayoneta","Pequeño con Push-Pull","Conector F"],"SC es muy usado en FTTH."],
+["Fibra óptica","¿Qué es el conector ST?","Cilíndrico de bayoneta (giro y traba)",["Pequeño con Push-Pull","Cuadrado de inserción directa","Conector BNC"],"ST usa bayoneta con giro y traba."],
+["Fibra óptica","¿Qué conector es estándar en switches y transceptores SFP/SFP+?","LC",["SC","ST","BNC"],"LC domina en SFP/SFP+."],
+["Fibra óptica","¿Qué conector es muy usado en redes PON/FTTH?","SC",["LC","ST","N-type"],"SC es típico de PON/FTTH."],
+["Fibra óptica","¿Cuál es la pérdida de inserción de un empalme por fusión?","Menor a 0.02 dB",["0.2 a 0.5 dB","Alrededor de 2 dB","Alrededor de 10 dB"],"La fusión tiene pérdida menor a 0.02 dB."],
+["Fibra óptica","¿Para qué se usa normalmente el empalme mecánico?","Solución temporal o emergencias",["Método definitivo en backbones","Enlaces de microondas","Conexión de cables UTP"],"El mecánico es temporal, con mayor pérdida."],
+["Fibra óptica","¿Cómo se realiza el empalme por fusión?","Con un arco eléctrico de alta precisión",["Con gel de adaptación de índice","Con pegamento epóxico","Con grapas metálicas"],"La fusión usa arco eléctrico."],
+["Fibra óptica","¿Por qué la fusión es el método definitivo?","Menor pérdida y alta resistencia mecánica",["Es el más barato","No requiere herramientas","Permite desconectarse fácilmente"],"Combina baja pérdida y resistencia mecánica."],
+["Fibra óptica","Verdadero o falso: la fibra multimodo es ideal para enlaces de 15 km.","Falso",["Verdadero"],"La multimodo se limita a distancias cortas o medianas; para 15 km conviene monomodo."],
 
-  // ===== 4.2 WI-FI =====
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué bandas de frecuencia utiliza IEEE 802.11ac (Wi-Fi 5)?",
-    ops: ["Solo 2.4 GHz", "Exclusivamente 5 GHz", "2.4, 5 y 6 GHz", "60 GHz"], r: 1,
-    exp: "Wi-Fi 5 opera exclusivamente en 5 GHz." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Cuál es la velocidad teórica máxima de IEEE 802.11ac?",
-    ops: ["6.9 Gbps", "9.6 Gbps", "1 Gbps", "10 Gbps"], r: 0,
-    exp: "Wi-Fi 5 alcanza hasta 6.9 Gbps teóricos." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué modulación usa IEEE 802.11ac?",
-    ops: ["64-QAM", "256-QAM", "1024-QAM", "4096-QAM"], r: 1,
-    exp: "Wi-Fi 5 usa modulación 256-QAM." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué modulación introduce IEEE 802.11ax (Wi-Fi 6)?",
-    ops: ["256-QAM", "1024-QAM", "64-QAM", "OFDM simple"], r: 1,
-    exp: "Wi-Fi 6 introduce la modulación 1024-QAM." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Cuál es la velocidad teórica máxima de Wi-Fi 6 (802.11ax)?",
-    ops: ["6.9 Gbps", "9.6 Gbps", "2.5 Gbps", "100 Gbps"], r: 1,
-    exp: "Wi-Fi 6 alcanza hasta 9.6 Gbps teóricos." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué bandas de frecuencia utiliza Wi-Fi 6 / 6E?",
-    ops: ["Solo 5 GHz", "Solo 6 GHz", "2.4 GHz, 5 GHz y 6 GHz (Wi-Fi 6E)", "Solo 2.4 GHz"], r: 2,
-    exp: "Wi-Fi 6 usa 2.4 y 5 GHz, y Wi-Fi 6E agrega 6 GHz." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué tecnología de Wi-Fi 6 divide el canal en subportadoras ortogonales?",
-    ops: ["OFDMA", "TWT", "BSS Coloring", "DL MU-MIMO"], r: 0,
-    exp: "OFDMA usa subportadoras ortogonales." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué función de Wi-Fi 6 reduce el consumo energético en dispositivos IoT?",
-    ops: ["OFDMA", "Target Wake Time (TWT)", "BSS Coloring", "6 GHz"], r: 1,
-    exp: "TWT permite que los dispositivos despierten en momentos programados, ahorrando energía." },
-  { sec: "Wi-Fi (IEEE 802.11)", q: "¿Qué tecnología de Wi-Fi 5 permite transmitir a varios usuarios en el sentido de bajada?",
-    ops: ["DL MU-MIMO", "OFDMA", "TWT", "BSS Coloring"], r: 0,
-    exp: "DL MU-MIMO (Downlink Multi-User MIMO) transmite a varios usuarios simultáneamente." },
+// ===== MICROONDAS =====
+["Microondas","¿En qué rango opera el SHF usado en enlaces microondas?","3 GHz a 30 GHz",["300 MHz a 3 GHz","30 GHz a 300 GHz","1 a 2 MHz"],"SHF abarca de 3 a 30 GHz."],
+["Microondas","¿Qué requisito de propagación cumplen los enlaces microondas?","Línea de vista directa (LoS)",["Estar enterrados","Usar fibra en el tramo","Usar coaxial de 75 Ω"],"Requieren LoS sin obstrucciones."],
+["Microondas","¿Qué zona debe quedar libre de obstrucciones?","Primera Zona de Fresnel",["Zona de ozono","Zona de sombra","Zona de carga eléctrica"],"La primera zona de Fresnel debe estar despejada."],
+["Microondas","¿Qué ocurre si hay obstrucción en la zona de Fresnel?","Desvanecimiento y pérdida de señal",["Aumento de la velocidad","Mayor alcance","Reducción del ruido térmico"],"La obstrucción causa desvanecimiento."],
 
-  // ===== 5G =====
-  { sec: "5G", q: "¿Qué pilar del 5G se enfoca en altas tasas de transferencia de pico?",
-    ops: ["eMBB", "URLLC", "mMTC", "LPWAN"], r: 0,
-    exp: "eMBB (Enhanced Mobile Broadband) ofrece tasas de pico de 10 a 20 Gbps." },
-  { sec: "5G", q: "¿Qué tasas de pico ofrece eMBB en 5G?",
-    ops: ["1 a 2 Gbps", "10 a 20 Gbps", "100 Mbps", "1 Tbps"], r: 1,
-    exp: "eMBB llega a tasas de pico de 10 a 20 Gbps." },
-  { sec: "5G", q: "¿Qué latencia ofrece URLLC?",
-    ops: ["Menor a 1 ms", "Alrededor de 10 ms", "Alrededor de 50 ms", "Alrededor de 100 ms"], r: 0,
-    exp: "URLLC ofrece latencias sub-milisegundo (menores a 1 ms)." },
-  { sec: "5G", q: "¿Qué densidad de dispositivos por km² soporta mMTC?",
-    ops: ["1,000 por km²", "10,000 por km²", "1,000,000 por km²", "100 por m²"], r: 2,
-    exp: "mMTC soporta hasta 1,000,000 de dispositivos por km²." },
-  { sec: "5G", q: "¿Para qué aplicación es ideal URLLC?",
-    ops: ["Streaming de video en 4K", "Cirugía remota y vehículos autónomos", "Descarga de archivos grandes", "Navegación web casual"], r: 1,
-    exp: "URLLC se usa en cirugía remota, vehículos autónomos y automatización industrial." },
-  { sec: "5G", q: "¿Qué pilar de 5G está orientado a conectar millones de sensores de IoT?",
-    ops: ["eMBB", "URLLC", "mMTC", "Wi-Fi 6"], r: 2,
-    exp: "mMTC (massive Machine Type Communications) es para gran cantidad de dispositivos." },
+// ===== WI-FI =====
+["Wi-Fi","¿En qué bandas opera IEEE 802.11ac (Wi-Fi 5)?","Exclusivamente 5 GHz",["Solo 2.4 GHz","2.4, 5 y 6 GHz","60 GHz"],"Wi-Fi 5 es exclusivo de 5 GHz."],
+["Wi-Fi","¿Cuál es la velocidad teórica máxima de 802.11ac?","6.9 Gbps",["9.6 Gbps","1 Gbps","10 Gbps"],"Wi-Fi 5 llega a 6.9 Gbps teóricos."],
+["Wi-Fi","¿Qué modulación usa 802.11ac?","256-QAM",["64-QAM","1024-QAM","4096-QAM"],"Wi-Fi 5 usa 256-QAM."],
+["Wi-Fi","¿Qué modulación introduce 802.11ax (Wi-Fi 6)?","1024-QAM",["256-QAM","64-QAM","OFDM simple"],"Wi-Fi 6 introduce 1024-QAM."],
+["Wi-Fi","¿Cuál es la velocidad teórica máxima de Wi-Fi 6?","9.6 Gbps",["6.9 Gbps","2.5 Gbps","100 Gbps"],"Wi-Fi 6 llega a 9.6 Gbps teóricos."],
+["Wi-Fi","¿Qué bandas usa Wi-Fi 6 / 6E?","2.4, 5 y 6 GHz (6E)",["Solo 5 GHz","Solo 6 GHz","Solo 2.4 GHz"],"Wi-Fi 6E añade la banda de 6 GHz."],
+["Wi-Fi","¿Qué técnica de Wi-Fi 6 divide el canal en subportadoras ortogonales?","OFDMA",["TWT","BSS Coloring","DL MU-MIMO"],"OFDMA usa subportadoras ortogonales."],
+["Wi-Fi","¿Qué función de Wi-Fi 6 reduce el consumo en IoT?","Target Wake Time (TWT)",["OFDMA","BSS Coloring","6 GHz"],"TWT programa despertares para ahorrar energía."],
+["Wi-Fi","¿Qué técnica transmite a varios usuarios a la vez en bajada?","DL MU-MIMO",["OFDMA","TWT","BSS Coloring"],"DL MU-MIMO sirve a varios clientes simultáneamente."],
+["Wi-Fi","¿Para qué sirve BSS Coloring?","Diferenciar redes cercanas para reducir interferencia",["Cifrar la comunicación","Aumentar el alcance a 10 km","Medir la temperatura del equipo"],"Identifica redes BSS vecinas."],
+["Wi-Fi","¿Qué aporta Wi-Fi 6E frente a Wi-Fi 6?","La banda de 6 GHz",["Modulación 4096-QAM","Frecuencias de 60 GHz","Conexión por fibra"],"6E añade 6 GHz."],
 
-  // ===== LPWAN / IoT =====
-  { sec: "LPWAN / IoT", q: "¿En qué bandas de frecuencia opera LoRa/LoRaWAN en Europa y en Estados Unidos?",
-    ops: ["868 MHz en Europa y 915 MHz en EE. UU.", "2.4 GHz en ambos", "5 GHz en ambos", "6 GHz en Europa"], r: 0,
-    exp: "LoRa usa 868 MHz (UE) y 915 MHz (US), ambas sub-GHz no licenciadas." },
-  { sec: "LPWAN / IoT", q: "¿Cuál es el alcance de LoRa en zonas rurales?",
-    ops: ["Más de 15 km", "Hasta 1 km", "Hasta 100 metros", "Hasta 300 metros"], r: 0,
-    exp: "En zonas rurales LoRa supera los 15 km." },
-  { sec: "LPWAN / IoT", q: "¿Cuál es el rango de tasa de datos de LoRa?",
-    ops: ["100 a 600 bps", "250 bps a 50 kbps", "1 a 2 Mbps", "Hasta 250 kbps"], r: 1,
-    exp: "LoRa maneja de 250 bps a 50 kbps." },
-  { sec: "LPWAN / IoT", q: "¿Cuál es la tasa de datos de Sigfox?",
-    ops: ["100 a 600 bps", "250 bps a 50 kbps", "1 a 2 Mbps", "Hasta 250 kbps"], r: 0,
-    exp: "Sigfox trabaja entre 100 y 600 bps, es decir, muy baja tasa." },
-  { sec: "LPWAN / IoT", q: "¿Qué alcance rural tiene Sigfox?",
-    ops: ["Hasta 2 km", "Hasta 30 a 50 km", "Hasta 100 metros", "Hasta 500 km"], r: 1,
-    exp: "En zonas rurales, Sigfox alcanza hasta 30 a 50 km." },
-  { sec: "LPWAN / IoT", q: "¿Qué caso de uso corresponde a Sigfox?",
-    ops: ["Seguimiento de activos y alarmas de respaldo", "Cirugía remota", "Streaming de video", "Redes de backbone"], r: 0,
-    exp: "Sigfox se usa en seguimiento de activos y alarmas de respaldo de ultra baja potencia." },
-  { sec: "Zigbee y BLE", q: "¿Bajo qué estándar IEEE opera Zigbee?",
-    ops: ["IEEE 802.11ac", "IEEE 802.15.4", "IEEE 802.3", "IEEE 802.16"], r: 1,
-    exp: "Zigbee sigue el estándar IEEE 802.15.4 y opera en 2.4 GHz." },
-  { sec: "Zigbee y BLE", q: "¿Cuál es la tasa máxima de Zigbee y su topología típica?",
-    ops: ["Hasta 250 kbps en malla (mesh)", "1 a 2 Mbps en estrella", "10 Gbps en bus", "100 bps en punto a punto"], r: 0,
-    exp: "Zigbee alcanza hasta 250 kbps y suele operar en malla." },
-  { sec: "Zigbee y BLE", q: "¿Qué caso de uso corresponde típicamente a Zigbee?",
-    ops: ["Domótica e iluminación inteligente", "Cirugía remota", "Enlaces microondas", "Fibra FTTH"], r: 0,
-    exp: "Zigbee se usa en domótica, automatización del hogar e iluminación inteligente." },
-  { sec: "Zigbee y BLE", q: "¿Cuál es la tasa de datos típica de Bluetooth Low Energy (BLE)?",
-    ops: ["250 kbps", "1 a 2 Mbps", "10 Gbps", "100 bps"], r: 1,
-    exp: "BLE opera entre 1 y 2 Mbps en 2.4 GHz ISM." },
-  { sec: "Zigbee y BLE", q: "¿Qué casos de uso corresponden a Bluetooth / BLE?",
-    ops: ["Wearables, balizas (beacons) y sensores biomédicos", "Fibra submarina", "Backbones de telecomunicaciones", "Cable CATV"], r: 0,
-    exp: "BLE se usa en wearables, beacons y sensores biomédicos." },
+// ===== 5G =====
+["5G","¿Qué pilar de 5G se enfoca en altas tasas de transferencia de pico?","eMBB",["URLLC","mMTC","LPWAN"],"eMBB ofrece 10 a 20 Gbps de pico."],
+["5G","¿Qué tasas de pico ofrece eMBB?","10 a 20 Gbps",["1 a 2 Mbps","100 Mbps","1 Tbps"],"eMBB alcanza 10–20 Gbps."],
+["5G","¿Qué latencia ofrece URLLC?","Menor a 1 ms",["Alrededor de 10 ms","Alrededor de 50 ms","Alrededor de 100 ms"],"URLLC es sub-milisegundo."],
+["5G","¿Qué densidad de dispositivos por km² soporta mMTC?","1,000,000",["1,000","10,000","100 por m²"],"mMTC soporta hasta un millón por km²."],
+["5G","¿Para qué aplicación es ideal URLLC?","Cirugía remota y vehículos autónomos",["Streaming 4K","Descarga de archivos grandes","Navegación web casual"],"URLLC es para aplicaciones críticas en tiempo real."],
+["5G","¿Qué pilar se usa para conectar millones de sensores IoT?","mMTC",["eMBB","URLLC","Wi-Fi 6"],"mMTC es para gran densidad de dispositivos."],
+["5G","¿Cuántos pilares de servicio tiene 5G según el documento?","Tres",["Dos","Cuatro","Cinco"],"eMBB, URLLC y mMTC."],
+["5G","Verdadero o falso: URLLC busca latencias menores a 1 ms.","Verdadero",["Falso"],"Es su característica principal."],
 
-  // ===== CASOS PRÁCTICOS =====
-  { sec: "Caso práctico", q: "Una empresa agrícola rural necesita enviar lecturas de sensores de humedad, con baja tasa de datos y a más de 15 km. ¿Qué tecnología recomendaría?",
-    ops: ["LoRa/LoRaWAN", "Wi-Fi 6E", "Cat 8", "Fibra multimodo"], r: 0,
-    exp: "LoRaWAN combina alcance rural superior a 15 km con baja tasa de datos, ideal para sensores." },
-  { sec: "Caso práctico", q: "Un edificio necesita 10 Gbps sobre cobre con distancias de hasta 100 m. ¿Qué categoría recomendaría?",
-    ops: ["Cat 5e", "Cat 6A", "Cat 8 (30 m)", "UTP sin especificar"], r: 1,
-    exp: "Cat 6A soporta 10 Gbps a 100 m; Cat 8 solo llega a 30 m por canal." },
-  { sec: "Caso práctico", q: "Se deben unir dos edificios separados por 15 km. ¿Qué tipo de fibra conviene?",
-    ops: ["Multimodo", "Monomodo", "Coaxial de 50 Ω", "UTP Cat 6"], r: 1,
-    exp: "La monomodo está diseñada para enlaces de larga distancia de decenas a cientos de km." },
-  { sec: "Caso práctico", q: "Para un enlace de datos dentro de un mismo centro de cómputo de distancia corta, ¿qué tipo de fibra es más económica y adecuada?",
-    ops: ["Monomodo", "Multimodo", "Ninguna, se necesita coaxial", "Fibra de 10 km"], r: 1,
-    exp: "La multimodo es adecuada para distancias cortas o medianas dentro de Data Centers y LAN." },
-  { sec: "Caso práctico", q: "¿Qué medio conviene para un entorno industrial con elevada interferencia electromagnética y cobre?",
-    ops: ["UTP sin blindaje", "STP/FTP", "Wi-Fi 5", "LoRa"], r: 1,
-    exp: "STP/FTP tiene pantallas de protección adicionales y es recomendado en entornos con alta EMI." }
+// ===== LPWAN =====
+["LPWAN","¿En qué bandas opera LoRa en Europa y EE. UU.?","868 MHz (UE) y 915 MHz (EE. UU.)",["2.4 GHz en ambos","5 GHz en ambos","6 GHz en Europa"],"Ambas son sub-GHz no licenciadas."],
+["LPWAN","¿Cuál es el alcance rural de LoRa?","Más de 15 km",["Hasta 1 km","Hasta 100 metros","Hasta 300 metros"],"En zonas rurales supera los 15 km."],
+["LPWAN","¿Qué rango de tasa de datos tiene LoRa?","250 bps a 50 kbps",["100 a 600 bps","1 a 2 Mbps","Hasta 250 kbps"],"LoRa es de baja tasa."],
+["LPWAN","¿Qué tasa de datos tiene Sigfox?","100 a 600 bps",["250 bps a 50 kbps","1 a 2 Mbps","Hasta 250 kbps"],"Sigfox es ultra baja tasa."],
+["LPWAN","¿Cuál es el alcance rural de Sigfox?","Hasta 30 a 50 km",["Hasta 2 km","Hasta 100 metros","Hasta 500 km"],"Sigfox alcanza 30–50 km rurales."],
+["LPWAN","¿Qué caso de uso corresponde a Sigfox?","Seguimiento de activos y alarmas de respaldo",["Cirugía remota","Streaming de video","Backbones de telecomunicaciones"],"Sigfox sirve para rastreo y alarmas."],
+["LPWAN","¿Qué caso de uso corresponde a LoRa?","Agricultura de precisión y telemetría de contadores",["Cirugía remota","Descarga de software","Telefonía 5G eMBB"],"LoRa es para agro y telemetría."],
+["LPWAN","¿Qué significa UNB en la tabla de Sigfox?","Banda ultra estrecha",["Banda ultra ancha","Banda universal de navegación","Banda de nivel bajo"],"UNB = Ultra Narrow Band."],
+["LPWAN","¿Qué alcance urbano tiene LoRa?","2 a 5 km",["10 a 20 metros","50 a 100 km","300 km"],"En urbano LoRa llega a 2–5 km."],
+["LPWAN","¿Qué alcance urbano tiene Sigfox?","3 a 10 km",["100 a 200 metros","30 a 50 km","1 a 2 km"],"En urbano Sigfox llega a 3–10 km."],
+
+// ===== ZIGBEE Y BLE =====
+["Zigbee y BLE","¿Bajo qué estándar IEEE opera Zigbee?","IEEE 802.15.4",["IEEE 802.11ac","IEEE 802.3","IEEE 802.16"],"Zigbee usa IEEE 802.15.4."],
+["Zigbee y BLE","¿Qué tasa y topología tiene Zigbee?","Hasta 250 kbps en malla (mesh)",["1 a 2 Mbps en estrella","10 Gbps en bus","100 bps punto a punto"],"Zigbee es de malla hasta 250 kbps."],
+["Zigbee y BLE","¿Qué caso de uso corresponde a Zigbee?","Domótica e iluminación inteligente",["Cirugía remota","Enlaces microondas","Fibra FTTH"],"Zigbee es para hogar inteligente."],
+["Zigbee y BLE","¿Cuál es el alcance típico de Zigbee?","10 a 100 metros",["1 a 2 km","Hasta 30 km","Hasta 500 metros"],"En malla cubre 10–100 m."],
+["Zigbee y BLE","¿Qué tasa de datos tiene BLE?","1 a 2 Mbps",["250 kbps","10 Gbps","100 bps"],"BLE ofrece 1–2 Mbps."],
+["Zigbee y BLE","¿Qué casos de uso corresponden a BLE?","Wearables, balizas y sensores biomédicos",["Fibra submarina","Backbones de telecomunicaciones","Cable CATV"],"BLE es para dispositivos personales."],
+["Zigbee y BLE","¿En qué banda opera BLE?","2.4 GHz ISM",["868 MHz","915 MHz","60 GHz"],"BLE usa la banda ISM de 2.4 GHz."],
+
+// ===== SIGLAS =====
+["Siglas","¿Qué significa EMI?","Interferencia electromagnética",["Energía de módulo integrado","Entrada de múltiple información","Emisión de microondas industriales"],"EMI = Electromagnetic Interference."],
+["Siglas","¿Qué significa LoS?","Line of Sight (línea de vista)",["Link of Signal","Level of Service","Loss of Signal"],"LoS = línea de vista directa."],
+["Siglas","¿Qué significa SMF?","Single Mode Fiber",["Simple Mesh Fiber","Standard Media Fiber","Switched Multi Frame"],"SMF = fibra monomodo."],
+["Siglas","¿Qué significa TWT?","Target Wake Time",["Transfer Wireless Time","Total Wave Transmission","Time Window Transfer"],"TWT ahorra energía en IoT."],
+["Siglas","¿Qué significa OFDMA?","Orthogonal Frequency Division Multiple Access",["Optical Fiber Data Multiplex Access","Orbital Frequency Digital Modulation Array","Onboard Fast Data Message Allocation"],"Acceso múltiple por división de frecuencia ortogonal."],
+["Siglas","¿Qué significa ToR en Data Centers?","Top of Rack",["Tower of Routing","Transfer over Radio","Total Optical Relay"],"ToR = conexión en la parte superior del rack."],
+["Siglas","¿Qué significa mMTC?","massive Machine Type Communications",["Mobile Multi-Tier Connection","Multi-Mode Terminal Channel","Micro Mesh Transfer Control"],"mMTC es comunicación masiva entre máquinas."],
+["Siglas","¿Qué significa LPWAN?","Low Power Wide Area Network",["Long Path Wireless Access Network","Local Packet Wide Area Node","Low Pulse Wireless Antenna Network"],"Redes de área amplia y baja potencia."],
+["Siglas","¿Qué significa CATV?","Distribución de televisión por cable",["Cable de alta tensión de video","Conexión automática de TV virtual","Cableado analógico de tránsito"],"CATV = televisión por cable."],
+["Siglas","¿Qué significa diafonía?","Crosstalk, interferencia entre pares",["Desvanecimiento en la antena","Ruido térmico del cable","Atenuación del conector"],"La diafonía es interferencia entre pares."],
+
+// ===== CÁLCULOS =====
+["Cálculos","En la fórmula FSPL = 32.44 + 20·log10(f MHz) + 20·log10(d km), ¿qué representa FSPL?","Pérdida en el espacio libre (dB)",["Ganancia de la antena","Factor de servicio de potencia","Sensibilidad del receptor"],"FSPL es la pérdida por espacio libre."],
+["Cálculos","Calcule el FSPL para f = 5800 MHz y d = 10 km.","≈ 127.7 dB",["≈ 97.7 dB","≈ 147.7 dB","≈ 75.3 dB"],"32.44 + 75.27 + 20 = 127.71 dB."],
+["Cálculos","Calcule el FSPL para f = 5800 MHz y d = 1 km.","≈ 107.7 dB",["≈ 127.7 dB","≈ 87.7 dB","≈ 97.7 dB"],"32.44 + 75.27 + 0 = 107.71 dB."],
+["Cálculos","Con P_TX = 20 dBm, G_TX = 24 dBi, G_RX = 24 dBi, pérdidas de 1 dB en cada lado y FSPL = 127.7 dB, ¿cuál es P_RX?","-61.7 dBm",["-71.7 dBm","-51.7 dBm","-81.7 dBm"],"20 + 24 − 1 − 127.7 + 24 − 1 = −61.7 dBm."],
+["Cálculos","¿Qué representa S_RX en el presupuesto de potencia?","Sensibilidad mínima del receptor",["Máxima potencia del transmisor","Ganancia de la antena","Pérdida por conectores"],"La señal recibida debe superar S_RX."],
+["Cálculos","Si P_RX es mayor que S_RX, ¿qué indica?","El enlace es viable con margen",["El enlace no funciona","Hay que cambiar a UTP","Se debe usar coaxial de 50 Ω"],"Superar la sensibilidad garantiza recepción."],
+["Cálculos","¿Cuántos MHz equivalen a 5.8 GHz?","5800 MHz",["580 MHz","58 MHz","5.8 MHz"],"1 GHz = 1000 MHz."],
+["Cálculos","¿Cuál es la pérdida típica de un empalme mecánico?","Entre 0.2 y 0.5 dB",["Menor a 0.02 dB","Alrededor de 2 dB","Alrededor de 10 dB"],"El mecánico tiene mayor pérdida que la fusión."],
+
+// ===== CASOS PRÁCTICOS =====
+["Casos prácticos","Una empresa agrícola rural necesita enviar lecturas de humedad, con baja tasa y a más de 15 km. ¿Qué tecnología recomienda?","LoRa/LoRaWAN",["Wi-Fi 6E","Cat 8","Fibra multimodo"],"Alcance rural >15 km y baja tasa."],
+["Casos prácticos","Un edificio necesita 10 Gbps sobre cobre a 100 m. ¿Qué categoría recomienda?","Cat 6A",["Cat 5e","Cat 8 (30 m)","UTP sin especificar"],"Cat 6A soporta 10 Gbps a 100 m."],
+["Casos prácticos","Dos edificios están a 15 km. ¿Qué tipo de fibra conviene?","Monomodo",["Multimodo","Coaxial de 50 Ω","UTP Cat 6"],"Monomodo es para larga distancia."],
+["Casos prácticos","En un entorno industrial con alta EMI y cobre, ¿qué medio conviene?","STP/FTP",["UTP sin blindaje","Wi-Fi 5","LoRa"],"STP/FTP tiene pantallas contra EMI."],
+["Casos prácticos","Para un enlace de corta distancia dentro de un centro de datos, ¿qué fibra es adecuada?","Multimodo",["Monomodo para 100 km","Coaxial de 75 Ω","Enlace SHF de 40 GHz"],"Multimodo sirve para distancias cortas."],
+["Casos prácticos","Un sensor IoT está en una zona rural a 25 km y envía pocos datos. ¿Qué opción es más adecuada?","LoRaWAN",["Wi-Fi 5 de 5 GHz","Bluetooth BLE","Zigbee en malla"],"LoRa cubre decenas de km con baja tasa."],
+["Casos prácticos","Se quiere domotizar luces en una casa con malla de dispositivos. ¿Qué tecnología conviene?","Zigbee",["Sigfox","Cat 8","Monomodo"],"Zigbee es mesh para domótica."],
+["Casos prácticos","Se necesita un rastreo de activos con mensajes muy pequeños y poca batería. ¿Qué opción?","Sigfox",["Cat 6A","Fibra monomodo","Wi-Fi 6E de alto caudal"],"Sigfox es ultra baja potencia para rastreo."]
 ];
 
-let indice = 0;
-let aciertos = 0;
-let respondida = false;
-const seccionesStats = {};
-const tarjeta = document.getElementById("tarjeta");
-const barra = document.getElementById("barra");
-const contador = document.getElementById("contador");
-const aciertosTxt = document.getElementById("aciertos");
+// ===== Estado y configuración =====
+const SECS = [...new Set(DATA.map(d => d[0]))];
+const cfg = { n: 0, secs: [], timer: false, sonido: true };
+let deck = [], pos = 0, score = 0, streak = 0, best = 0;
+let respondida = false, errores = [], respuestas = [];
+let timerId = null, tiempo = 20, pantalla = "setup";
+let audioCtx = null;
+const app = document.getElementById("app");
 
-// Ordenar: las preguntas se muestran en orden
-document.querySelector(".info-progreso span:first-child").textContent = "Pregunta 1 de " + preguntas.length;
-
-function actualizarProgreso() {
-  const pct = (indice / preguntas.length) * 100;
-  barra.style.width = pct + "%";
-  contador.textContent = "Pregunta " + (indice + 1) + " de " + preguntas.length;
-  aciertosTxt.textContent = "Aciertos: " + aciertos;
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-function mostrarPregunta() {
-  respondida = false;
-  actualizarProgreso();
-  const p = preguntas[indice];
-  const letras = ["A", "B", "C", "D", "E", "F"];
-  let html = `
-    <span class="etiqueta">${p.sec}</span>
-    <div class="pregunta">${p.q}</div>
-    <div class="opciones">
-      ${p.ops.map((op, i) => `
-        <button class="opcion" data-i="${i}">
-          <span class="letra">${letras[i]}</span>
-          <span>${op}</span>
-        </button>`).join("")}
-    </div>
-    <div class="explicacion" id="explicacion"></div>
-    <div class="acciones">
-      <button class="btn" id="siguiente">${indice === preguntas.length - 1 ? "Ver resultados" : "Siguiente"} →</button>
+function armar(items) {
+  return shuffle(items.map(it => ({ s: it[0], q: it[1], c: it[2], w: it[3], e: it[4] })))
+    .map(it => {
+      const opts = shuffle([it.c, ...it.w]);
+      return { ...it, opts, ans: opts.indexOf(it.c) };
+    });
+}
+
+// ===== Pantallas =====
+function renderSetup() {
+  pantalla = "setup";
+  stopTimer();
+  app.innerHTML = `
+    <div class="card girar">
+      <h2 class="titulo-setup">Configura tu sesión</h2>
+      <p class="label">Número de preguntas</p>
+      <div class="chips" data-g="n">
+        ${[10, 20, 40, 0].map(v => `<button class="chip ${cfg.n === v ? "on" : ""}" data-v="${v}">${v || "Todas"}</button>`).join("")}
+      </div>
+      <p class="label">Secciones (ninguna = todas)</p>
+      <div class="chips" data-g="sec">
+        ${SECS.map(s => `<button class="chip ${cfg.secs.includes(s) ? "on" : ""}" data-v="${s}">${s}</button>`).join("")}
+      </div>
+      <label class="switch"><input type="checkbox" id="chkTimer" ${cfg.timer ? "checked" : ""}> Temporizador de 20 s por pregunta</label>
+      <button class="btn grande" id="empezar">Comenzar ▶</button>
+      <p class="hint">Atajos: 1–4 o A–D para responder · Enter para avanzar</p>
     </div>`;
-  tarjeta.style.animation = "none";
-  tarjeta.offsetHeight;
-  tarjeta.style.animation = "";
-  tarjeta.innerHTML = html;
-
-  tarjeta.querySelectorAll(".opcion").forEach(btn => {
-    btn.addEventListener("click", () => responder(btn));
-  });
-  document.getElementById("siguiente").addEventListener("click", siguiente);
 }
 
-function responder(btn) {
+function iniciar(items) {
+  const pool = armar(items);
+  deck = cfg.n && !items.repaso ? pool.slice(0, cfg.n) : pool;
+  pos = 0; score = 0; streak = 0; errores = []; respuestas = [];
+  pantalla = "quiz";
+  renderPregunta(true);
+}
+
+function renderPregunta(anim) {
+  respondida = false;
+  const it = deck[pos];
+  app.innerHTML = `
+    <div class="card ${anim ? "girar" : ""}" id="card">
+      <div class="meta">
+        <span class="etiqueta">${it.s}</span>
+        <span class="racha ${streak >= 3 ? "activa" : ""}" id="racha">Racha ${streak}</span>
+      </div>
+      <div class="barra"><div id="progFill" style="width:${(pos / deck.length) * 100}%"></div></div>
+      <div class="info"><span>Pregunta ${pos + 1} de ${deck.length}</span><span id="infoAciertos">Aciertos ${score}</span></div>
+      ${cfg.timer ? `<div class="timer"><div id="timerFill"></div></div>` : ""}
+      <div class="pregunta">${it.q}</div>
+      <div class="opciones">
+        ${it.opts.map((o, i) => `
+          <button class="opcion" data-i="${i}" style="animation-delay:${i * 70}ms">
+            <span class="letra">${"ABCD"[i]}</span>
+            <span class="txt">${o}</span>
+            <span class="tecla">${i + 1}</span>
+          </button>`).join("")}
+      </div>
+      <div class="explicacion" id="expl"></div>
+      <div class="acciones"><button class="btn" id="sig" disabled>${pos === deck.length - 1 ? "Ver resultados" : "Siguiente"} →</button></div>
+    </div>`;
+  startTimer();
+}
+
+function responder(i) {
   if (respondida) return;
   respondida = true;
-  const p = preguntas[indice];
-  const elegida = parseInt(btn.dataset.i);
-  const botones = tarjeta.querySelectorAll(".opcion");
-  const sec = p.sec;
-  if (!seccionesStats[sec]) seccionesStats[sec] = { ok: 0, total: 0 };
-  seccionesStats[sec].total++;
+  stopTimer();
+  const it = deck[pos];
+  const ok = i === it.ans;
+  const btns = [...document.querySelectorAll(".opcion")];
+  btns.forEach(b => b.disabled = true);
+  btns[it.ans].classList.add("correcta");
+  const card = document.getElementById("card");
 
-  botones.forEach(b => b.disabled = true);
-  botones[p.r].classList.add("correcta");
-
-  const exp = document.getElementById("explicacion");
-  if (elegida === p.r) {
-    aciertos++;
-    seccionesStats[sec].ok++;
-    exp.className = "explicacion ok";
-    exp.innerHTML = "✅ <strong>¡Correcto!</strong> " + p.exp;
-    lanzarConfeti();
+  if (ok) {
+    score++; streak++; best = Math.max(best, streak);
+    burst(btns[i]);
+    if (streak >= 3 && streak % 3 === 0) repetirPop(document.getElementById("racha"));
   } else {
-    btn.classList.add("incorrecta");
-    exp.className = "explicacion mal";
-    exp.innerHTML = "❌ <strong>Incorrecto.</strong> La respuesta correcta es: " + p.ops[p.r] + ". " + p.exp;
+    streak = 0;
+    errores.push(it);
+    if (i >= 0) btns[i].classList.add("incorrecta");
+    card.classList.add("sacudir");
   }
-  aciertosTxt.textContent = "Aciertos: " + aciertos;
-  document.getElementById("siguiente").classList.add("visible");
+  sonar(ok);
+  respuestas.push({ s: it.s, ok });
+
+  const ex = document.getElementById("expl");
+  ex.className = "explicacion visible " + (ok ? "ok" : "mal");
+  ex.innerHTML = ok
+    ? `<b>Correcto.</b> ${it.e}`
+    : `${i < 0 ? "<b>Tiempo agotado.</b>" : "<b>Incorrecto.</b>"} Respuesta: <b>${it.c}</b>. ${it.e}`;
+
+  const r = document.getElementById("racha");
+  r.textContent = "Racha " + streak;
+  r.classList.toggle("activa", streak >= 3);
+  document.getElementById("infoAciertos").textContent = "Aciertos " + score;
+  const sig = document.getElementById("sig");
+  sig.disabled = false;
+  sig.classList.add("listo");
 }
 
 function siguiente() {
-  indice++;
-  if (indice < preguntas.length) {
-    mostrarPregunta();
-  } else {
-    mostrarResultados();
-  }
+  if (!respondida) return;
+  pos++;
+  if (pos < deck.length) renderPregunta(true);
+  else renderResultados();
 }
 
-function mostrarResultados() {
-  barra.style.width = "100%";
-  contador.textContent = "Completado";
-  aciertosTxt.textContent = "Aciertos: " + aciertos + " / " + preguntas.length;
+function renderResultados() {
+  pantalla = "fin";
+  stopTimer();
+  const total = deck.length;
+  const pct = total ? Math.round((score / total) * 100) : 0;
+  const msg = pct >= 90 ? "¡Dominio excelente de la unidad!"
+    : pct >= 70 ? "Muy buen trabajo; repasa tus errores."
+    : pct >= 50 ? "Buen intento; refuerza los casos prácticos."
+    : "Repasa las secciones y vuelve a intentarlo.";
 
-  const pct = Math.round((aciertos / preguntas.length) * 100);
-  let emoji = "🏆", msg = "¡Excelente dominio de la unidad!";
-  if (pct < 60) { emoji = "📚"; msg = "Te recomiendo repasar los temas con más errores."; }
-  else if (pct < 80) { emoji = "👍"; msg = "Buen trabajo, sigue reforzando."; }
-
-  let filas = Object.keys(seccionesStats).map((sec, i) => {
-    const s = seccionesStats[sec];
-    const p2 = Math.round((s.ok / s.total) * 100);
-    return `
-      <div class="fila-seccion" style="animation-delay:${i * 0.08}s">
-        <strong>${sec}: ${s.ok} / ${s.total} (${p2}%)</strong>
-        <div class="barra-mini"><div data-w="${p2}"></div></div>
-      </div>`;
+  const stats = {};
+  respuestas.forEach(r => {
+    stats[r.s] = stats[r.s] || { ok: 0, t: 0 };
+    stats[r.s].t++;
+    if (r.ok) stats[r.s].ok++;
+  });
+  const filas = Object.entries(stats).map(([s, v], i) => {
+    const p = Math.round((v.ok / v.t) * 100);
+    return `<div class="fila" style="animation-delay:${i * 60}ms">
+      <div class="fila-top"><span>${s}</span><b>${v.ok}/${v.t} (${p}%)</b></div>
+      <div class="barra-mini"><div data-w="${p}"></div></div>
+    </div>`;
   }).join("");
 
-  tarjeta.innerHTML = `
-    <div class="resultado">
-      <div class="emoji">${emoji}</div>
-      <div class="puntaje">${pct}%</div>
-      <div class="mensaje">${aciertos} de ${preguntas.length} respuestas correctas. ${msg}</div>
-      <div class="detalle-seccion">${filas}</div>
-      <button class="btn visible" id="reiniciar">Reiniciar cuestionario</button>
+  app.innerHTML = `
+    <div class="card girar resultado">
+      <div class="ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="fondo" cx="60" cy="60" r="54"></circle>
+          <circle class="fg" id="aro" cx="60" cy="60" r="54" stroke-dasharray="339.3" stroke-dashoffset="339.3"></circle>
+        </svg>
+        <div class="ringtxt"><span id="pctTxt">0%</span></div>
+      </div>
+      <p class="mensaje">${score} de ${total} correctas · Mejor racha: ${best}</p>
+      <p class="msg">${msg}</p>
+      <div class="detalle">${filas}</div>
+      <div class="botones">
+        <button class="btn" id="repasar" ${errores.length ? "" : "disabled"}>Repasar ${errores.length} error${errores.length === 1 ? "" : "es"}</button>
+        <button class="btn sec" id="nuevo">Nuevo cuestionario</button>
+      </div>
     </div>`;
 
   setTimeout(() => {
-    tarjeta.querySelectorAll(".barra-mini div").forEach(d => d.style.width = d.dataset.w + "%");
-  }, 200);
-  document.getElementById("reiniciar").addEventListener("click", reiniciar);
-  for (let i = 0; i < 60; i++) setTimeout(lanzarConfeti, i * 40);
+    document.getElementById("aro").style.strokeDashoffset = 339.3 * (1 - pct / 100);
+    document.querySelectorAll(".barra-mini div").forEach(d => d.style.width = d.dataset.w + "%");
+    let c = 0;
+    const iv = setInterval(() => {
+      c += 2;
+      if (c >= pct) { c = pct; clearInterval(iv); }
+      document.getElementById("pctTxt").textContent = c + "%";
+    }, 25);
+    if (pct >= 60) lanzarConfeti(90);
+  }, 150);
 }
 
-function reiniciar() {
-  indice = 0; aciertos = 0;
-  for (const k in seccionesStats) delete seccionesStats[k];
-  mostrarPregunta();
+// ===== Temporizador =====
+function startTimer() {
+  if (!cfg.timer) return;
+  stopTimer();
+  tiempo = 20;
+  timerId = setInterval(() => {
+    tiempo -= 0.1;
+    const f = document.getElementById("timerFill");
+    if (f) {
+      f.style.width = (tiempo / 20) * 100 + "%";
+      if (tiempo <= 5) f.classList.add("urgente");
+    }
+    if (tiempo <= 0) { stopTimer(); responder(-1); }
+  }, 100);
+}
+function stopTimer() { clearInterval(timerId); timerId = null; }
+
+// ===== Efectos =====
+function burst(el) {
+  const r = el.getBoundingClientRect();
+  const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const colores = ["#22c55e", "#38bdf8", "#facc15", "#f472b6", "#a78bfa"];
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement("span");
+    s.className = "chispa";
+    const a = (Math.PI * 2 * i) / 16;
+    const d = 40 + Math.random() * 50;
+    s.style.left = cx + "px";
+    s.style.top = cy + "px";
+    s.style.background = colores[i % colores.length];
+    s.style.setProperty("--dx", Math.cos(a) * d + "px");
+    s.style.setProperty("--dy", Math.sin(a) * d + "px");
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 850);
+  }
 }
 
-function lanzarConfeti() {
-  const colores = ["#38bdf8", "#22c55e", "#f59e0b", "#ef4444", "#a855f7", "#ffffff"];
-  const c = document.createElement("div");
-  c.className = "confeti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.background = colores[Math.floor(Math.random() * colores.length)];
-  c.style.animationDuration = (2 + Math.random() * 2) + "s";
-  document.body.appendChild(c);
-  setTimeout(() => c.remove(), 4200);
+function repetirPop(el) {
+  el.classList.remove("pop");
+  void el.offsetWidth;
+  el.classList.add("pop");
 }
 
-mostrarPregunta();
+function lanzarConfeti(n) {
+  const cont = document.getElementById("confeti");
+  const cols = ["#38bdf8", "#22c55e", "#f59e0b", "#ef4444", "#a855f7", "#ffffff"];
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement("i");
+    d.className = "papel";
+    d.style.left = Math.random() * 100 + "vw";
+    d.style.background = cols[Math.floor(Math.random() * cols.length)];
+    d.style.animationDuration = (2.5 + Math.random() * 2) + "s";
+    d.style.animationDelay = (Math.random() * 0.6) + "s";
+    cont.appendChild(d);
+    setTimeout(() => d.remove(), 5000);
+  }
+}
+
+function sonar(ok) {
+  if (!cfg.sonido) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    const t = audioCtx.currentTime;
+    o.type = "sine";
+    o.frequency.setValueAtTime(ok ? 660 : 180, t);
+    if (ok) o.frequency.exponentialRampToValueAtTime(990, t + 0.15);
+    g.gain.setValueAtTime(0.15, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(t); o.stop(t + 0.3);
+  } catch (e) { /* sin audio disponible */ }
+}
+
+// ===== Eventos =====
+app.addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (chip) {
+    const grupo = chip.parentElement.dataset.g;
+    if (grupo === "n") {
+      cfg.n = Number(chip.dataset.v);
+      chip.parentElement.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c === chip));
+    } else {
+      const v = chip.dataset.v;
+      cfg.secs = cfg.secs.includes(v) ? cfg.secs.filter(x => x !== v) : [...cfg.secs, v];
+      chip.classList.toggle("on");
+    }
+    chip.animate([{ transform: "scale(.85)" }, { transform: "scale(1.08)" }, { transform: "scale(1)" }], { duration: 300 });
+    return;
+  }
+  if (e.target.closest("#empezar")) {
+    const base = cfg.secs.length ? DATA.filter(d => cfg.secs.includes(d[0])) : DATA;
+    iniciar(base);
+    return;
+  }
+  const op = e.target.closest(".opcion");
+  if (op && !respondida) { responder(Number(op.dataset.i)); return; }
+  if (e.target.closest("#sig")) { siguiente(); return; }
+  if (e.target.closest("#repasar")) {
+    deck = armar(errores.map(x => [x.s, x.q, x.c, x.w, x.e]));
+    pos = 0; score = 0; streak = 0; errores = []; respuestas = [];
+    pantalla = "quiz";
+    renderPregunta(true);
+    return;
+  }
+  if (e.target.closest("#nuevo")) { renderSetup(); }
+});
+
+app.addEventListener("change", e => {
+  if (e.target.id === "chkTimer") cfg.timer = e.target.checked;
+});
+
+document.addEventListener("keydown", e => {
+  if (pantalla !== "quiz") return;
+  const k = e.key.toLowerCase();
+  const mapa = { "1": 0, "2": 1, "3": 2, "4": 3, "a": 0, "b": 1, "c": 2, "d": 3 };
+  if (k in mapa && !respondida) {
+    if (document.querySelectorAll(".opcion")[mapa[k]]) responder(mapa[k]);
+  } else if ((k === "enter" || k === " ") && respondida) {
+    e.preventDefault();
+    siguiente();
+  }
+});
+
+
+iniciar(DATA);
 </script>
 </body>
 </html>
